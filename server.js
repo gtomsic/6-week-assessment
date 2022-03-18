@@ -79,7 +79,7 @@ app.post("/api/duel", (req, res) => {
       res.status(200).send("You lost!");
     } else {
       playerRecord.losses++;
-      rollbar.info(`Play again ${playerAttack.losses++}`);
+      rollbar.info(`Player win the game`);
       res.status(200).send("You won!");
     }
   } catch (error) {
@@ -91,6 +91,7 @@ app.post("/api/duel", (req, res) => {
 
 app.get("/api/player", (req, res) => {
   try {
+    rollbar.info("Getting player");
     res.status(200).send(playerRecord);
   } catch (error) {
     rollbar.error("ERROR GETTING PLAYER STATS");
