@@ -93,6 +93,7 @@ app.get("/api/player", (req, res) => {
   try {
     res.status(200).send(playerRecord);
   } catch (error) {
+    rollbar.error("ERROR GETTING PLAYER STATS");
     console.log("ERROR GETTING PLAYER STATS", error);
     res.sendStatus(400);
   }
