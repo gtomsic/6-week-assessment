@@ -102,5 +102,6 @@ app.get("/api/player", (req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
+  rollbar.log("You application is running");
   console.log(`Listening on port ${port}`);
 });
