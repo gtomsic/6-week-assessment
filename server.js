@@ -6,6 +6,7 @@ const { shuffleArray } = require("./utils");
 
 // include and initialize the rollbar library with your access token
 var Rollbar = require("rollbar");
+const res = require("express/lib/response");
 var rollbar = new Rollbar({
   accessToken: "8b0dc8f202644a06a139ccf8ec6394fd",
   captureUncaught: true,
@@ -18,7 +19,10 @@ rollbar.log("Hello world!");
 app.use(express.json());
 
 // Serving the entire plublic directory
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "public")));
+// app.use("/public", async () => {
+//   await res.sendFile(path(__dirname, "/public/index.html"));
+// });
 // Serving for the styles css
 app.use("/styles", express.static(path.join(__dirname, "public/index.css")));
 // Serving for the index javascript file

@@ -5,7 +5,7 @@ require("chromedriver");
 const driver = new Builder().withCapabilities(Capabilities.chrome()).build();
 
 beforeEach(async () => {
-  driver.get("http://localhost:3000/public/index.html");
+  driver.get("http://localhost:3000/");
 });
 
 afterAll(async () => {
