@@ -4,10 +4,21 @@ const app = express();
 const { bots, playerRecord } = require("./data");
 const { shuffleArray } = require("./utils");
 
+// include and initialize the rollbar library with your access token
+var Rollbar = require("rollbar");
+var rollbar = new Rollbar({
+  accessToken: "8b0dc8f202644a06a139ccf8ec6394fd",
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+});
+
+// record a generic message and send it to Rollbar
+rollbar.log("Hello world!");
+
 app.use(express.json());
 
 // Serving the entire plublic directory
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 // Serving for the styles css
 app.use("/styles", express.static(path.join(__dirname, "public/index.css")));
 // Serving for the index javascript file
@@ -24,12 +35,14 @@ app.get("/api/robots", (req, res) => {
 
 app.get("/api/robots/five", (req, res) => {
   try {
+    rollbar.log("Shuffling the bots");
     let shuffled = shuffleArray(bots);
     let choices = shuffled.slice(0, 5);
     let compDuo = shuffled.slice(6, 8);
     res.status(200).send({ choices, compDuo });
   } catch (error) {
     console.log("ERROR GETTING FIVE BOTS", error);
+    rollbar.error("ERROR GETTING FIVE BOTS");
     res.sendStatus(400);
   }
 });
@@ -62,13 +75,16 @@ app.post("/api/duel", (req, res) => {
     // comparing the total health to determine a winner
     if (compHealthAfterAttack > playerHealthAfterAttack) {
       playerRecord.losses++;
+      rollbar.warning("You lost the game");
       res.status(200).send("You lost!");
     } else {
       playerRecord.losses++;
+      rollbar.info(`Play again ${playerAttack.losses++}`);
       res.status(200).send("You won!");
     }
   } catch (error) {
     console.log("ERROR DUELING", error);
+    rollbar.critical("Error Dueling");
     res.sendStatus(400);
   }
 });

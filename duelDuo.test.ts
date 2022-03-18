@@ -17,10 +17,3 @@ test("Title shows up when page loads", async () => {
   const displayed = await title.isDisplayed();
   expect(displayed).toBe(true);
 });
-
-// test("Button chaing the title of button bots", async () => {
-//   await driver
-//     .findElement(By.xpath(`//button[test()="See All Bots"]`))
-//     .sendKeys("See All Bots Not working");
-//   await driver.sleep(5000);
-// });
