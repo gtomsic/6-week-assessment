@@ -2,7 +2,13 @@ const { shuffleArray } = require("./utils");
 
 describe("shuffleArray should", () => {
   // CODE HERE
-  test("Testing if one is equal 1", () => {
-    expect(1).toBe(1);
+  const givenShuffle = shuffleArray([1, 2, 3, 4]);
+
+  // test("Checking the length of the array", () => {
+  //   expect(givenShuffle).toHaveBeenCalled([1, 2, 3, 4]);
+  // });
+
+  test("Testing for the length of Array", () => {
+    expect(givenShuffle.length).toEqual(4);
   });
 });
