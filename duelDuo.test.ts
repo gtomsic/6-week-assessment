@@ -25,6 +25,7 @@ test("Check that clicking the Draw button displays the div with id = “choices�
 });
 
 test("Check that clicking an “Add to Duo” button displays the div with id = “player-duo”", async () => {
+  // I finally made combination working with foreach
   await (
     await driver.findElements(By.xpath(`//button[@class="bot-btn"]`))
   ).forEach((element) => element.click());
@@ -32,9 +33,11 @@ test("Check that clicking an “Add to Duo” button displays the div with id = 
   await driver.sleep(10000);
 });
 
-// test("Check that when a bot is “Removed from Duo”, that it goes back to “choices””", async () => {
-//   await driver.findElement(By.xpath(`//button[text()='Remove from Duo']`));
-//   await driver.findElement(By.xpath(`//div[@id="choices"]`));
-//   await driver.sleep(5000);
-
-// });
+test("Check that when a bot is “Removed from Duo”, that it goes back to “choices””", async () => {
+  const elements = await (
+    await driver.findElements(By.xpath(`//button[text()="Removed from Duo"]`))
+  ).forEach((element) => element.click());
+  console.log(elements);
+  await driver.findElement(By.xpath(`//div[@id="choices"]`));
+  await driver.sleep(10000);
+});
