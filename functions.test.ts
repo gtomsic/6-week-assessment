@@ -5,7 +5,7 @@ describe("shuffleArray should", () => {
   const givenShuffle = shuffleArray([1, 2, 3, 4]);
 
   test("Checking the length of the array", () => {
-    expect.arrayContaining([1, 2, 3, 4]);
+    expect(givenShuffle).toEqual(expect.arrayContaining([1, 2, 3, 4]));
   });
 
   test("Testing for the length of Array", () => {
