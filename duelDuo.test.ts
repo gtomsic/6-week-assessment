@@ -21,7 +21,7 @@ test("Title shows up when page loads", async () => {
 test("Check that clicking the Draw button displays the div with id = “choices”", async () => {
   await driver.findElement(By.xpath(`//button[@id="draw"]`)).click();
   await driver.findElement(By.xpath(`//div[@id="choices"]`));
-  await driver.sleep(10000);
+  await driver.sleep(3000);
 });
 
 test("Check that clicking an “Add to Duo” button displays the div with id = “player-duo”", async () => {
@@ -30,7 +30,7 @@ test("Check that clicking an “Add to Duo” button displays the div with id = 
     await driver.findElements(By.xpath(`//button[@class="bot-btn"]`))
   ).forEach((element) => element.click());
   await driver.findElement(By.xpath(`//div[@id="player-duo"]`));
-  await driver.sleep(10000);
+  await driver.sleep(3000);
 });
 
 test("Check that when a bot is “Removed from Duo”, that it goes back to “choices””", async () => {
@@ -39,5 +39,5 @@ test("Check that when a bot is “Removed from Duo”, that it goes back to “c
   ).forEach((element) => element.click());
   console.log(elements);
   await driver.findElement(By.xpath(`//div[@id="choices"]`));
-  await driver.sleep(10000);
+  await driver.sleep(3000);
 });
