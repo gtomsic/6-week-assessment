@@ -25,7 +25,7 @@ test("Check that clicking the Draw button displays the div with id = “choices�
   );
   const isClass = await classElement.isDisplayed();
   expect(isClass).toBe(true);
-  await driver.sleep(5000);
+  await driver.sleep(1000);
 });
 
 // ///////////////////////////////////////////////////////
@@ -39,18 +39,33 @@ test("Check that clicking an “Add to Duo” button displays the div with id = 
   const btnDuo = await driver.findElement(By.xpath(`//div[@id="player-duo"]`));
   const playerDuo = await btnDuo.isDisplayed();
   expect(playerDuo).toBe(true);
-  await driver.sleep(5000);
+  await driver.sleep(1000);
 });
 
-// test("Check that when a bot is “Removed from Duo”, that it goes back to “choices””", async () => {
-//   // Just to make sure I selected all elements with same class name
-//   // Use the foreach method to attached click in every element
-//   const elements = await (
-//     await driver.findElements(
-//       By.xpath(`(//button[text()="Removed from Duo"])[1]`)
-//     )
-//   ).forEach((element) => element.click());
-//   console.log(elements);
-//   await driver.findElement(By.xpath(`//div[@id="choices"]`));
-//   await driver.sleep(3000);
-// });
+test("Check that when a bot is “Removed from Duo”, that it goes back to “choices””", async () => {
+  await driver.findElement(By.xpath(`//button[@id="draw"]`)).click();
+  const choices = await driver
+    .findElements(By.xpath('//div[@id="choices"]/div'))
+    .then(function (elements) {
+      var count = elements.length;
+      return count;
+    });
+  await driver.findElement(By.xpath(`(//button[@class="bot-btn"])[1]`)).click();
+  let remainingChoices = await driver
+    .findElements(By.xpath('//div[@id="choices"]/div'))
+    .then(function (elements) {
+      var count = elements.length;
+      return count;
+    });
+  console.log(choices, remainingChoices);
+  await driver.findElement(By.xpath(`(//button[@class="bot-btn"])[5]`)).click();
+  remainingChoices = await driver
+    .findElements(By.xpath('//div[@id="choices"]/div'))
+    .then(function (elements) {
+      var count = elements.length;
+      return count;
+    });
+  console.log(choices, remainingChoices);
+  expect(Number(choices)).toBe(Number(remainingChoices));
+  await driver.sleep(1000);
+});
